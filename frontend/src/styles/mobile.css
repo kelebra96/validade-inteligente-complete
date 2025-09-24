@@ -1,0 +1,318 @@
+/* Mobile-first responsive styles for PWA */
+
+/* Base mobile styles */
+@media (max-width: 768px) {
+  /* Dashboard grid adjustments */
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  /* Card spacing */
+  .card {
+    margin-bottom: 1rem;
+    padding: 1rem !important;
+  }
+  
+  /* Button adjustments */
+  .button-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .button-group button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Navigation improvements */
+  .nav-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Chart responsiveness */
+  .chart-container {
+    height: 250px !important;
+    margin-bottom: 1rem;
+  }
+  
+  /* Table responsiveness */
+  .table-container {
+    overflow-x: auto;
+    overflow-y: scroll; /* Modern alternative for smooth scrolling */
+  }
+  
+  .table-container table {
+    min-width: 600px;
+  }
+  
+  /* Form improvements */
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .form-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Modal adjustments */
+  .modal-content {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+  
+  /* Metrics grid */
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+  }
+  
+  /* Alert adjustments */
+  .alert-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  /* Gamification tabs */
+  .gamification-tabs {
+    flex-direction: column;
+  }
+  
+  .gamification-tab {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Progress bars */
+  .progress-container {
+    margin-bottom: 1rem;
+  }
+  
+  /* Badge grid */
+  .badge-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+  }
+  
+  /* Ranking list */
+  .ranking-item {
+    padding: 0.75rem !important;
+  }
+  
+  .ranking-item .user-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Challenge cards */
+  .challenge-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* IA Preditiva adjustments */
+  .prediction-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .prediction-chart {
+    height: 200px !important;
+  }
+  
+  /* Reports adjustments */
+  .report-filters {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .report-filter {
+    width: 100%;
+  }
+  
+  /* Connectivity status */
+  .connectivity-status {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    left: 1rem !important;
+    width: auto !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  /* Even smaller adjustments */
+  .metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .nav-buttons {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .badge-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Text size adjustments */
+  .card-title {
+    font-size: 1.1rem !important;
+  }
+  
+  .metric-value {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Padding adjustments */
+  .container {
+    padding: 0.5rem !important;
+  }
+  
+  .card {
+    padding: 0.75rem !important;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  button, .button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for touch */
+  .clickable-item {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Remove hover effects */
+  .hover-effect:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* PWA specific styles */
+@media (display-mode: standalone) {
+  /* Hide browser UI elements */
+  .browser-only {
+    display: none !important;
+  }
+  
+  /* Adjust for status bar */
+  .app-header {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  /* Adjust for home indicator */
+  .app-footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Full screen adjustments */
+  .main-content {
+    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .auto-dark {
+    background-color: #1f2937;
+    color: #f9fafb;
+  }
+  
+  .auto-dark .card {
+    background-color: #374151;
+    border-color: #4b5563;
+  }
+  
+  .auto-dark .button-secondary {
+    background-color: #4b5563;
+    color: #f9fafb;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .animate-spin {
+    animation: none !important;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid currentColor;
+  }
+  
+  .button {
+    border: 2px solid currentColor;
+  }
+  
+  .alert {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break {
+    page-break-after: always;
+  }
+  
+  .chart-container {
+    height: auto !important;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .mobile-landscape {
+    flex-direction: row;
+  }
+  
+  .mobile-landscape .sidebar {
+    width: 200px;
+    height: 100vh;
+  }
+  
+  .mobile-landscape .main-content {
+    flex: 1;
+    overflow-y: auto;
+  }
+}
+
+/* iOS specific adjustments */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari specific styles */
+  .ios-input {
+    font-size: 16px; /* Prevents zoom */
+  }
+  
+  .ios-scroll {
+    overflow-y: scroll; /* Modern browsers handle smooth scrolling natively */
+  }
+}
+
+/* Android specific adjustments */
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
+  /* Android Chrome specific styles */
+  .android-input {
+    background-color: transparent;
+  }
+}

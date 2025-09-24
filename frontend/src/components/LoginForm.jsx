@@ -1,18 +1,21 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Alert, AlertDescription } from './ui/alert';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Eye, EyeOff, Mail, Lock, Building, Phone, MapPin } from 'lucide-react';
-import apiService from '../services/api';
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx';
+import { Button } from '@/components/ui/button.jsx';
+import { Input } from '@/components/ui/input.jsx';
+import { Label } from '@/components/ui/label.jsx';
+import { Alert, AlertDescription } from '@/components/ui/alert.jsx';
+import { Eye, EyeOff, LogIn, Mail, Lock } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
-export default function LoginForm({ onLogin }) {
+export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   // Estados do formulário de login
   const [loginData, setLoginData] = useState({
@@ -42,13 +45,17 @@ export default function LoginForm({ onLogin }) {
     setError('');
 
     try {
-      const response = await apiService.login(loginData);
-      setSuccess('Login realizado com sucesso!');
-      setTimeout(() => {
-        onLogin(response.user);
-      }, 1000);
-    } catch (err) {
-      setError(err.message);
+      const response = await login(loginData);
+      if (response.success) {
+        setSuccess('Login realizado com sucesso!');
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 1000);
+      } else {
+        setError(response.error || 'Erro ao fazer login');
+      }
+    } catch (error) {
+      setError('Erro de conexão. Tente novamente.');
     } finally {
       setLoading(false);
     }

@@ -51,16 +51,16 @@ services:
 
   frontend:
     build:
-      context: ./validade-inteligente
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - REACT_APP_API_URL=http://localhost:5000/api
+      - VITE_API_URL=http://localhost:5000/api
     volumes:
-      - ./validade-inteligente/src:/app/src
-      - ./validade-inteligente/public:/app/public
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
     networks:
       - app-network
     restart: unless-stopped
@@ -75,7 +75,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
-      - ./validade-inteligente/dist:/usr/share/nginx/html:ro
+      - ./frontend/dist:/usr/share/nginx/html:ro
     depends_on:
       - backend
       - frontend
