@@ -30,17 +30,17 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiService.login(credentials);
       
-      if (response.success) {
+      if (response.access_token && response.user) {
         setUser(response.user);
         localStorage.setItem('user', JSON.stringify(response.user));
-        localStorage.setItem('token', response.token);
+        localStorage.setItem('token', response.access_token);
         return { success: true, user: response.user };
       } else {
-        return { success: false, error: response.error };
+        return { success: false, error: response.error || 'Erro ao fazer login' };
       }
     } catch (error) {
       console.error('Erro no login:', error);
-      return { success: false, error: 'Erro ao fazer login' };
+      return { success: false, error: error.message || 'Erro ao fazer login' };
     }
   };
 

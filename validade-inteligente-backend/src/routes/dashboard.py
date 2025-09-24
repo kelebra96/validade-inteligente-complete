@@ -309,3 +309,128 @@ def get_tendencias(user_id, data_inicio, data_fim):
         'crescimento_vendas': 15.5,  # Simulado - calcular baseado em dados reais
         'previsao_economia': 2500.00  # Simulado - usar IA preditiva
     }
+
+# Endpoints específicos para o frontend
+@dashboard_bp.route('/dashboard/summary', methods=['GET'])
+@jwt_required()
+def get_dashboard_summary():
+    """Obtém resumo do dashboard"""
+    try:
+        current_user_id = get_jwt_identity()
+        periodo = request.args.get('period', '30d')
+        
+        # Calcular datas
+        hoje = date.today()
+        if periodo == '7d':
+            data_inicio = hoje - timedelta(days=7)
+        elif periodo == '30d':
+            data_inicio = hoje - timedelta(days=30)
+        elif periodo == '90d':
+            data_inicio = hoje - timedelta(days=90)
+        else:
+            data_inicio = hoje - timedelta(days=30)
+        
+        resumo = get_resumo_dashboard(current_user_id, data_inicio, hoje)
+        return jsonify(resumo)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@dashboard_bp.route('/dashboard/graphs', methods=['GET'])
+@jwt_required()
+def get_dashboard_graphs():
+    """Obtém dados para gráficos do dashboard"""
+    try:
+        current_user_id = get_jwt_identity()
+        periodo = request.args.get('period', '30d')
+        
+        # Calcular datas
+        hoje = date.today()
+        if periodo == '7d':
+            data_inicio = hoje - timedelta(days=7)
+        elif periodo == '30d':
+            data_inicio = hoje - timedelta(days=30)
+        elif periodo == '90d':
+            data_inicio = hoje - timedelta(days=90)
+        else:
+            data_inicio = hoje - timedelta(days=30)
+        
+        graficos = get_graficos_dashboard(current_user_id, data_inicio, hoje)
+        return jsonify(graficos)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@dashboard_bp.route('/dashboard/metrics', methods=['GET'])
+@jwt_required()
+def get_dashboard_metrics():
+    """Obtém métricas de performance do dashboard"""
+    try:
+        current_user_id = get_jwt_identity()
+        periodo = request.args.get('period', '30d')
+        
+        # Calcular datas
+        hoje = date.today()
+        if periodo == '7d':
+            data_inicio = hoje - timedelta(days=7)
+        elif periodo == '30d':
+            data_inicio = hoje - timedelta(days=30)
+        elif periodo == '90d':
+            data_inicio = hoje - timedelta(days=90)
+        else:
+            data_inicio = hoje - timedelta(days=30)
+        
+        metricas = get_metricas_performance(current_user_id, data_inicio, hoje)
+        return jsonify(metricas)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@dashboard_bp.route('/dashboard/alerts', methods=['GET'])
+@jwt_required()
+def get_dashboard_alerts():
+    """Obtém alertas recentes do dashboard"""
+    try:
+        current_user_id = get_jwt_identity()
+        alertas = get_alertas_recentes(current_user_id)
+        return jsonify(alertas)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@dashboard_bp.route('/dashboard/critical', methods=['GET'])
+@jwt_required()
+def get_dashboard_critical():
+    """Obtém produtos críticos do dashboard"""
+    try:
+        current_user_id = get_jwt_identity()
+        produtos_criticos = get_produtos_criticos(current_user_id)
+        return jsonify(produtos_criticos)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@dashboard_bp.route('/dashboard/trends', methods=['GET'])
+@jwt_required()
+def get_dashboard_trends():
+    """Obtém tendências do dashboard"""
+    try:
+        current_user_id = get_jwt_identity()
+        periodo = request.args.get('period', '30d')
+        
+        # Calcular datas
+        hoje = date.today()
+        if periodo == '7d':
+            data_inicio = hoje - timedelta(days=7)
+        elif periodo == '30d':
+            data_inicio = hoje - timedelta(days=30)
+        elif periodo == '90d':
+            data_inicio = hoje - timedelta(days=90)
+        else:
+            data_inicio = hoje - timedelta(days=30)
+        
+        tendencias = get_tendencias(current_user_id, data_inicio, hoje)
+        return jsonify(tendencias)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

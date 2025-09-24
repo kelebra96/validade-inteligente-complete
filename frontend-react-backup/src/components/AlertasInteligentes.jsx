@@ -19,7 +19,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
-import ApiService from '@/services/api';
+import apiService from '@/services/api';
 import { toast } from 'sonner';
 
 const AlertasInteligentes = () => {
@@ -41,9 +41,9 @@ const AlertasInteligentes = () => {
     setLoading(true);
     try {
       const [alertasData, configData, statsData] = await Promise.all([
-        ApiService.getAlertasAtivos(filtros),
-        ApiService.getConfiguracaoAlertas(),
-        ApiService.getEstatisticasAlertas()
+        apiService.getAlertasAtivos(filtros),
+        apiService.getConfiguracaoAlertas(),
+        apiService.getEstatisticasAlertas()
       ]);
 
       setAlertas(alertasData.alertas || []);
@@ -59,7 +59,7 @@ const AlertasInteligentes = () => {
 
   const handleResolverAlerta = async (alertaId, acao) => {
     try {
-      await ApiService.resolverAlerta(alertaId, { acao, observacoes: `Ação: ${acao}` });
+      await apiService.resolverAlerta(alertaId, { acao, observacoes: `Ação: ${acao}` });
       toast.success('Alerta resolvido com sucesso!');
       loadData();
     } catch (error) {

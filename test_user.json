@@ -1,0 +1,13 @@
+{
+  "email": "admin@admin.com",
+  "password": "admin123",
+  "nome_estabelecimento": "Admin Test",
+  "cnpj": "12345678000123",
+  "telefone": "11999999999",
+  "endereco": {
+    "rua": "Rua Teste 123",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "cep": "01234567"
+  }
+}

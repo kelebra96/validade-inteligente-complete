@@ -6,7 +6,7 @@ echo "🚀 Iniciando backend Validade Inteligente..."
 cd validade-inteligente-backend
 
 # Carregar variáveis de ambiente
-export $(cat ../.env.wsl2 | xargs)
+export $(cat ../.env.wsl2 | grep -v '^#' | grep -v '^$' | xargs)
 
 # Criar ambiente virtual se não existir
 if [ ! -d "venv" ]; then
@@ -35,4 +35,4 @@ print('✅ Banco de dados inicializado!')
 
 # Iniciar servidor
 echo "🌟 Iniciando servidor backend na porta $BACKEND_PORT..."
-python -m gunicorn --bind 0.0.0.0:$BACKEND_PORT --reload app:app
+python validade-inteligente-backend/app.py

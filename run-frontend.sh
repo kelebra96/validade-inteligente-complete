@@ -2,11 +2,16 @@
 
 echo "🚀 Iniciando frontend Validade Inteligente..."
 
+# Configurar pnpm no PATH
+export PATH="$HOME/.local/share/pnpm:$PATH"
+
 # Navegar para o diretório do frontend
 cd frontend
 
 # Carregar variáveis de ambiente
-export $(cat ../.env.wsl2 | xargs)
+set -a
+source ../.env.wsl2 | grep -v '^#' | grep -v '^$'
+set +a
 
 # Instalar dependências se node_modules não existir
 if [ ! -d "node_modules" ]; then

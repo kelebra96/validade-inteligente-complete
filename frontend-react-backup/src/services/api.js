@@ -65,8 +65,8 @@ class ApiService {
       body: JSON.stringify(credentials),
     });
     
-    if (response.token) {
-      this.setToken(response.token);
+    if (response.access_token) {
+      this.setToken(response.access_token);
     }
     
     return response;
