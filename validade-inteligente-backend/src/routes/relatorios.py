@@ -522,3 +522,57 @@ def get_categorias_relatorio():
         
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
+
+@relatorios_bp.route('/relatorios/dashboard', methods=['GET'])
+@jwt_required()
+def relatorio_dashboard():
+    """Relatório para o dashboard"""
+    try:
+        user_id = get_jwt_identity()
+        periodo = request.args.get('periodo', '30d')
+        
+        # Calcular datas
+        hoje = datetime.now().date()
+        if periodo == '7d':
+            data_inicio = hoje - timedelta(days=7)
+        elif periodo == '30d':
+            data_inicio = hoje - timedelta(days=30)
+        elif periodo == '90d':
+            data_inicio = hoje - timedelta(days=90)
+        else:
+            data_inicio = hoje - timedelta(days=30)
+        
+        # Buscar produtos
+        produtos = Produto.query.filter(
+            Produto.user_id == user_id,
+            Produto.created_at >= data_inicio
+        ).all()
+        
+        # Buscar vendas
+        vendas = HistoricoVenda.query.join(Produto).filter(
+            Produto.user_id == user_id,
+            HistoricoVenda.data_venda >= data_inicio
+        ).all()
+        
+        # Buscar alertas
+        alertas = Alerta.query.join(Produto).filter(
+            Produto.user_id == user_id,
+            Alerta.created_at >= data_inicio
+        ).all()
+        
+        relatorio = {
+            'periodo': periodo,
+            'data_inicio': data_inicio.isoformat(),
+            'data_fim': hoje.isoformat(),
+            'total_produtos': len(produtos),
+            'total_vendas': len(vendas),
+            'total_alertas': len(alertas),
+            'produtos': [p.to_dict() for p in produtos[:10]],  # Últimos 10
+            'vendas': [v.to_dict() for v in vendas[:10]],      # Últimas 10
+            'alertas': [a.to_dict() for a in alertas[:10]]     # Últimos 10
+        }
+        
+        return jsonify(relatorio)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

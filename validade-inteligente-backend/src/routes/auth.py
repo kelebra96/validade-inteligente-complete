@@ -50,6 +50,7 @@ def register():
         access_token = create_access_token(identity=str(user.id))
         
         return jsonify({
+            'success': True,
             'message': 'Usuário criado com sucesso',
             'access_token': access_token,
             'user': {

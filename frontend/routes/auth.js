@@ -67,7 +67,7 @@ router.post('/register', async (req, res) => {
     }
     
     const response = await axios.post(`${API_BASE_URL}/auth/register`, {
-      name,
+      nome_estabelecimento: name,
       email,
       password
     });

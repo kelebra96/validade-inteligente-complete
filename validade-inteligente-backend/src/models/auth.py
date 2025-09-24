@@ -90,6 +90,7 @@ def login():
         )
         
         return jsonify({
+            'success': True,
             'message': 'Login realizado com sucesso',
             'token': access_token,
             'user': user.to_dict()

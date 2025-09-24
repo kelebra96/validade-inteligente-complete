@@ -40,11 +40,13 @@ app.use((req, res, next) => {
 const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
 const productRoutes = require('./routes/products');
+const settingsRoutes = require('./routes/settings');
 
 // Usar rotas
 app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/products', productRoutes);
+app.use('/settings', settingsRoutes);
 
 // Rota principal - redireciona para login se não autenticado
 app.get('/', (req, res) => {
